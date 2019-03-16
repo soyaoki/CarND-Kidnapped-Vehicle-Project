@@ -35,8 +35,7 @@ int main() {
   // GPS measurement uncertainty [x [m], y [m], theta [rad]]
   double sigma_pos [3] = {0.3, 0.3, 0.01};
   // Landmark measurement uncertainty [x [m], y [m]]
-  double sigma_landmark [2] = {0.3, 0.3};
-
+  double sigma_landmark [2] = {0.3, 0.5};
   // Read map data
   Map map;
   if (!read_map_data("../data/map_data.txt", map)) {
