@@ -33,7 +33,7 @@ void ParticleFilter::init(double x, double y, double theta, double std[]) {
    * NOTE: Consult particle_filter.h for more information about this method 
    *   (and others in this file).
    */
-  num_particles = 200;  // TODO: Set the number of particles
+  num_particles = 20;  // TODO: Set the number of particles
 
   Particle p;
   // generate random
@@ -133,7 +133,7 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
   
   // for each Paticles
   for (int i = 0; i < num_particles; i++){
-    // calcurate distances between the particle and each landmarks.
+    // pick up landmarks in range
     vector<LandmarkObs> predicted;
     for (int j = 0; j < map_landmarks.landmark_list.size(); j++){
       // if landmark is in range
@@ -147,19 +147,19 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
       }
     }
     
-    // transfer observed (measured) distace from vehicle coordinate (map) to global coordinate (map)
+    // transform observed (measured) x, y from vehicle coordinate (map) to global coordinate (map)
     vector<LandmarkObs> observed;
     for (int k = 0; k < observations.size(); k++){
       LandmarkObs obs;
-      // transfer
+      // transform
       obs.x = particles[i].x + ( cos(particles[i].theta) * observations[k].x ) - ( sin(particles[i].theta) * observations[k].y );
       obs.y = particles[i].y + ( sin(particles[i].theta) * observations[k].x ) + ( cos(particles[i].theta) * observations[k].y );
       obs.id =  k;
       observed.push_back(obs);
     }
     
-    // 
-    dataAssociation(predicted, observed); // resize to same size
+    // find closest landmark for each observed x, y 
+    dataAssociation(predicted, observed); 
 
     // show predicted and observed X,Y (Landmark in the global map)
     //for (int n = 0; n < predicted.size(); n++){
@@ -170,11 +170,11 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
     particles[i].weight = 1.0;
     
     // wight update
-    // for each observed x, y (transfered to global map)
+    // for each observed x, y (they have been transformed to global map)
     for (int l = 0; l < observed.size(); l++){
       // for each predicted x,y 
       for (int m = 0; m < predicted.size(); m++){
-        // use the result of dataAssociation (closest set of observed and predicted has same id)
+        // use the result of dataAssociation (closest observed and predicted has same id)
         if ( predicted[m].id == observed[l].id){
           // update weight
           particles[i].weight = particles[i].weight * multiv_prob(std_landmark[0], std_landmark[1], observed[l].x, observed[l].y, predicted[m].x, predicted[m].y);
