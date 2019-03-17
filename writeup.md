@@ -30,7 +30,9 @@ I could see the words "Success! Your particle filter passed!". It means I made s
 
 #### 3. Make sure particle runs within the specified time of 100 seconds
 
-And I could see the words "Success! Your particle filter passed!". It means I made sure particle runs within the specified time of 100 seconds.
+As I said, I could see the words "Success! Your particle filter passed!". It means I made sure particle runs within the specified time of 100 seconds.
+
+Movies which my particles work are following. 5 particles did not localizes the vehicle to within the desired accuracy.
 
 [Particles = 5](https://youtu.be/D436mJEW4Ig)
 
