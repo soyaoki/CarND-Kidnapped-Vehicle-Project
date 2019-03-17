@@ -43,10 +43,10 @@ int main() {
     return -1;
   }
   // Map show
-  std::cout <<"Landmark is:" << std::endl;
-  for (int i = 0; i < map.landmark_list.size(); i++){
-    std::cout <<  map.landmark_list[i].id_i << ", " <<  map.landmark_list[i].x_f << ", "<<  map.landmark_list[i].y_f << std::endl;
-  }
+  //std::cout <<"Landmark is:" << std::endl;
+  //for (int i = 0; i < map.landmark_list.size(); i++){
+    //std::cout <<  map.landmark_list[i].id_i << ", " <<  map.landmark_list[i].x_f << ", "<<  map.landmark_list[i].y_f << std::endl;
+  //}
 
   // Create particle filter
   ParticleFilter pf;
